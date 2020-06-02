@@ -1,0 +1,96 @@
+/* ========================================
+  Base Element Styles
+=========================================== */
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background: #1e6cc5;
+  color: white;
+  font-size: 16px;
+  font-family: 'Varela Round', sans-serif;
+  padding: 5% 5% 0;
+}
+main {
+  text-align: center;
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+ul li {
+  margin-bottom: 20px;
+}
+
+/* ========================================
+  Base Page Element Styles
+=========================================== */
+
+.headline {
+  font-family: 'Courgette', sans-serif;
+  font-size: 2.5em;
+}
+.tagline,
+.type {
+  color: #89bffd;
+}
+.headline,
+.tagline {
+  margin-bottom: 30px;
+}
+.btn {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 15px 20px;
+  border-radius: 50px;
+  border: 4px solid;
+  color: white;
+  background: #1e6cc5;
+  font-size: .9em;
+  transition: background .5s, border-color .5s;
+}
+.btn:hover {
+  background: #418de4;
+  border-color: transparent;
+}
+
+/* ========================================
+  Helper Classes
+=========================================== */
+
+.slideUp {
+  transform: translateY(-70px);
+  transition: transform .5s;
+}
+.hidden {
+  display: none;
+}
+
+/* ========================================
+  Media Queries
+=========================================== */
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: 3.75em;
+  }
+  .tagline {
+    font-size: 1.15em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .headline {
+    font-size: 5.2em;
+  }
+  .tagline {
+    font-size: 1.2em;
+  }
+  .headline,
+  .tagline {
+    margin-bottom: 40px;
+  }
+}
