@@ -3,13 +3,23 @@ const body = document.querySelector('body');
 const main = document.querySelector('main');
 const headline = document.querySelector('.headline');
 const tagline = document.querySelector('.tagline');
-const viewButton = document.getElementById('viewButton');
-const viewCheckbox = document.getElementById('viewCheckbox');
+const viewTodayButton = document.getElementById('viewTodayButton');
+const viewWeeklyButton = document.getElementById('viewWeeklyButton');
+const viewToday = document.getElementById('viewToday');
+const viewWeekly = document.getElementById('viewWeekly');
 const planDiv = document.querySelector('.plan');
 const shuffleButton = document.querySelector('.shuffle');
 const mealList = document.getElementById('meals');
 const meals = []; 
 const mealTimes = ['Breakfast', 'Lunch', 'Dinner'];
+
+const mealPlansDay1 = document.querySelectorAll('#mon li');
+const mealPlansDay2 = document.querySelectorAll('#tues li');
+const mealPlansDay3 = document.querySelectorAll('#wed li');
+const mealPlansDay4 = document.querySelectorAll('#thurs li');
+const mealPlansDay5 = document.querySelectorAll('#fri li');
+const mealPlansDay6 = document.querySelectorAll('#sat li');
+const mealPlansDay7 = document.querySelectorAll('#sun li');
 
 // *--meal lists courtesy of tasty.co--*
 meals.push(
@@ -60,23 +70,49 @@ const getDay = () => {
 // get a meal from array
 const getRandomMeal = () => meals[randomNum(meals)];
 
+
 // shuffle meals
-const shuffle = () => {
-  // remove all meals
-  for (let i = 0; i < mealTimes.length; i++) {
-    let mealLI = mealList.children[0];
-    mealList.removeChild(mealLI);
-  }
-  // clear meal list
-  mealList.innerHTML = '';
-  // insert new meals
-  displayDailyMealPlan();
+const shuffle = mealPlanList => {
+
+    // remove all meals
+    for (let i = 0; i < mealTimes.length; i++) {
+      let mealLI = mealPlanList.children[0];
+      mealPlanList.removeChild(mealLI);
+    }
+
+    // clear meal list
+    mealPlanList.innerHTML = '';
+
+    // insert new meals
+    displayMealPlan(mealPlanList);
+
 }
 
-// insert meals into meal plan
-const displayDailyMealPlan = () => {
+const checkRepetition = (mealPlans, mealList) => {
+  const meal_1 = mealPlans[0].textContent;
+  const meal_2 = mealPlans[1].textContent;
+  const meal_3 = mealPlans[2].textContent;
+
+  // if any meal is repeated
+  if (meal_1 === meal_2 || meal_1 === meal_3 || meal_2 === meal_3) {
+    shuffle(mealList);
+  }
+}
+
+// insert meals into daily meal plan
+const displayMealPlan = (mealList) => {
 
   // insert a meal for every meal time of the day
+  addMeals(mealList);
+
+  // select all meals in daily plan
+  const mealPlans = mealList.children;
+
+  //check for repetition
+  checkRepetition(mealPlans, mealList); 
+};
+
+const addMeals = (mealList) => {
   for (let i = 0; i < mealTimes.length; i++) {
     let meal = getRandomMeal();
     let mealLI = document.createElement('LI');
@@ -84,16 +120,17 @@ const displayDailyMealPlan = () => {
     mealList.appendChild(mealLI);
     animate(mealLI, 'slideDown .3s forwards');
   }
+};
 
-  const mealPlans = document.querySelectorAll('#meals li');
-  const meal_1 = mealPlans[0].textContent;
-  const meal_2 = mealPlans[1].textContent;
-  const meal_3 = mealPlans[2].textContent;
+const mealListsWeekly = document.querySelectorAll('.meals-weekly');
 
-  // if any meal is repeated
-  if (meal_1 === meal_2 || meal_1 === meal_3 || meal_2 === meal_3) {
-    shuffle();
+// insert meals into weekly meal plan
+const displayWeeklyMealPlan = () => {
+
+  for (let i = 0; i < mealListsWeekly.length; i++) {
+    displayMealPlan(mealListsWeekly[i]);
   }
+
 };
 
 // event handler for both 'click' and 'keyup'
@@ -139,20 +176,32 @@ const handleEvent = e => {
   }
 
   // if view button is pressed, change message and button text
-  if (viewCheckbox.checked) {
+  if (viewToday.checked) {
     tagline.textContent = "Here's what's planned for today!";
-    viewButton.textContent = "Go Back";
+    viewTodayButton.textContent = "Go Back";
+    // make heading smaller and move up
+    animate(planDiv, 'slideUp .5s forwards');
+  } else if (viewWeekly.checked) {
+    tagline.textContent = "Here's what's planned for the week!";
+    viewWeeklyButton.textContent = "Go Back";
     // make heading smaller and move up
     animate(planDiv, 'slideUp .5s forwards');
   } else { // if button is pressed again set initial text and location
     tagline.innerHTML = `Hey ${name}, get ready for a wild set of meal plans!!<br>
     Click below to see your meal plans.`;
-    viewButton.textContent = "View Plan";
+    viewTodayButton.textContent = "View Today's Plan";
+    viewWeeklyButton.textContent = "View Weekly Plan";
     animate(planDiv, '');
   }
 
-  if (e.target.textContent === 'Shuffle') {
-    shuffle();
+  // if daily meal plan is viewed and shuffle is clicked
+  if (e.target.textContent === 'Shuffle' && viewToday.checked) {
+    shuffle(mealList);
+  } else if (e.target.textContent === 'Shuffle' && viewWeekly.checked) {
+
+    for (let i = 0; i < mealListsWeekly.length; i++) {
+      shuffle(mealListsWeekly[i]);
+    }
   }
 
 }
@@ -172,7 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="enter">Enter</button>
                       </div>`;
   body.insertBefore(overlay, main);
-  displayDailyMealPlan();
+  displayMealPlan(mealList);
+  displayWeeklyMealPlan();
 
 });
 
@@ -180,6 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
 body.addEventListener('click', handleEvent);
 body.addEventListener('keyup', handleEvent);
 
-// viewButton.addEventListener('click', () => {
-//   animate(viewButton, 'fade .1s forwards');
+// viewTodayButton.addEventListener('click', () => {
+//   animate(viewTodayButton, 'fade .1s forwards');
 // });
