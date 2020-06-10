@@ -179,12 +179,10 @@ const handleEvent = e => {
   if (viewToday.checked) {
     tagline.textContent = "Here's what's planned for today!";
     viewTodayButton.textContent = "Go Back";
-    // make heading smaller and move up
   } else if (viewWeekly.checked) {
     headline.textContent = "Weekly Plan";
     tagline.textContent = "Here's what's planned for the week!";
     viewWeeklyButton.textContent = "Go Back";
-    // make heading smaller and move up
   } else { // if button is pressed again set initial text and location
     headline.textContent = getDay();
     tagline.innerHTML = `<span>Hey ${name}!</span> Get ready for a wild set of meal plans!!<br>
