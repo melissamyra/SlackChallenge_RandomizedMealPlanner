@@ -151,7 +151,7 @@ const handleEvent = e => {
       // insert local date day as heading
       headline.textContent = getDay();
       // insert message
-      tagline.innerHTML = `Hey ${name}, get ready for a wild set of meal plans!!<br>
+      tagline.innerHTML = `<span>Hey ${name}!</span> Get ready for a wild set of meal plans!!<br>
                             Click below to see your meal plans.`;
       // fade and hide overlay
       overlay.style.animation = 'fade .1s forwards';
@@ -180,18 +180,17 @@ const handleEvent = e => {
     tagline.textContent = "Here's what's planned for today!";
     viewTodayButton.textContent = "Go Back";
     // make heading smaller and move up
-    animate(planDiv, 'slideUp .5s forwards');
   } else if (viewWeekly.checked) {
+    headline.textContent = "Weekly Plan";
     tagline.textContent = "Here's what's planned for the week!";
     viewWeeklyButton.textContent = "Go Back";
     // make heading smaller and move up
-    animate(planDiv, 'slideUp .5s forwards');
   } else { // if button is pressed again set initial text and location
-    tagline.innerHTML = `Hey ${name}, get ready for a wild set of meal plans!!<br>
+    headline.textContent = getDay();
+    tagline.innerHTML = `<span>Hey ${name}!</span> Get ready for a wild set of meal plans!!<br>
     Click below to see your meal plans.`;
     viewTodayButton.textContent = "View Today's Plan";
     viewWeeklyButton.textContent = "View Weekly Plan";
-    animate(planDiv, '');
   }
 
   // if daily meal plan is viewed and shuffle is clicked
@@ -230,6 +229,3 @@ document.addEventListener('DOMContentLoaded', () => {
 body.addEventListener('click', handleEvent);
 body.addEventListener('keyup', handleEvent);
 
-// viewTodayButton.addEventListener('click', () => {
-//   animate(viewTodayButton, 'fade .1s forwards');
-// });

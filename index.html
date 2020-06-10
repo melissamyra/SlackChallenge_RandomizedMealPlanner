@@ -6,7 +6,7 @@
     <title>Weekly Meal Planner</title>
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela+Round|Courgette&display=swap">
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <main>
@@ -18,21 +18,22 @@
       <label for="viewWeekly" class="btn" id="viewWeeklyButton">View Weekly Plan</label>
       <section class="plan">
         <ul id="meals"></ul>
-        <p>Don't like these options?</p>
+        <p class="shuffle-wording">Don't like these options?</p>
         <button class="btn shuffle">Shuffle</button>
       </section>
-      <section class="plan-week">
-        <div>
-          <ul class="meals-weekly" id="mon"></ul>
-          <ul class="meals-weekly" id="tues"></ul>
-          <ul class="meals-weekly" id="wed"></ul>
-          <ul class="meals-weekly" id="thurs"></ul>
-          <ul class="meals-weekly" id="fri"></ul>
-          <ul class="meals-weekly" id="sat"></ul>
-          <ul class="meals-weekly" id="sun"></ul>
+      <section class="plan_week">
+        <div class="meals-weekly-container">
+          <div><p class="plan_week-days">Monday</p><ul class="meals-weekly top" id="mon"></ul></div>
+          <div><p class="plan_week-days">Tuesday</p><ul class="meals-weekly top" id="tues"></ul></div>
+          <div><p class="plan_week-days">Wednesday</p><ul class="meals-weekly top" id="wed"></ul></div>
+          <div><p class="plan_week-days">Thursday</p><ul class="meals-weekly top" id="thurs"></ul></div>
+          <div><p class="plan_week-days">Friday</p><ul class="meals-weekly" id="fri"></ul></div>
+          <div><p class="plan_week-days">Saturday</p><ul class="meals-weekly" id="sat"></ul></div>
+          <div><p class="plan_week-days">Sunday</p><ul class="meals-weekly" id="sun"></ul></div>
         </div>
-        <p>Wanna mix them up again?</p>
-        <button class="btn shuffle">Shuffle</button>
+        <p class="shuffle-wording">Wanna mix them up again?</p>
+        <button class="btn shuffle">Shuffle</button><br>
+        <a href="#"><button class="btn to-top">to Top</button></a>
       </section>
     </main>
     <script src="app.js"></script>
